@@ -13,7 +13,7 @@ namespace AddressBook
         {
             Console.WriteLine("----------- \n Address Book \n ----------- \n");
             Contact contact = new Contact();
-            Console.WriteLine("Choose an option \n 1.Add Contact \n 2.Edit Contact \n 3.Delete Contact \n 4. Display \n");
+            Console.WriteLine("Choose an option \n 1.Add Contact \n 2.Display \n");
             int number = Convert.ToInt32(Console.ReadLine());
             switch(number)
             {
@@ -21,12 +21,6 @@ namespace AddressBook
                     contact.AddContact();
                     break;
                 case 2:
-                    contact.Edit();
-                    break;
-                case 3:
-                    contact.Delete();
-                    break;
-                case 4:
                     contact.Display();
                     break;
                 default:
