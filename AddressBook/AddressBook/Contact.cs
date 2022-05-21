@@ -42,7 +42,7 @@ namespace AddressBook
                 person.Email = Console.ReadLine();
 
                 Address_Book.Add(person);
-                Console.WriteLine("\n {0}'s contact succesfully added", person.Firstname);
+                Console.WriteLine("Contact succesfully added: {0} ", person.Firstname);
         }
         public void Edit()
         {
@@ -97,7 +97,7 @@ namespace AddressBook
                                 Edit();
                                 break;
                         }
-                        Console.WriteLine(" {0} contact has been successfully added", edit);
+                        Console.WriteLine(" {0} contact has been updated ", edit);
                         break;
                     }
                 }
@@ -156,6 +156,6 @@ namespace AddressBook
                         Console.WriteLine("\n Contact of the person {0} does not exist", name);
                     }
                 }
-        }
+            }
     }
 }
