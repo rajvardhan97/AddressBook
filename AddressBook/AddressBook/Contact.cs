@@ -107,33 +107,7 @@ namespace AddressBook
                 Console.WriteLine(" The Address Book is empty");
             }
         }
-        public void Delete()
-        {
-            Console.Write("\n Enter the First Name to delete contact from Address Book: ");
-            string delete = Console.ReadLine();
-            if (Address_Book.Count > 0)
-            {
-                foreach (Details person in Address_Book)
-                {
-                    if (delete == person.Firstname)
-                    {
-                        Console.Write("To Delete This Contact Press 0 : ");
-                        int confirm = Convert.ToInt32(Console.ReadLine());
-
-                        if (confirm == 0)
-                        {
-                            Address_Book.Remove(person);
-                            Console.WriteLine(" Contact Successfully Deleted");
-                            break;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                Console.WriteLine("Address Book is empty");
-            }
-        }
+        
             public void Display()
             {
                 Console.Write("\n Enter the name of the person to get all the contact details : ");
