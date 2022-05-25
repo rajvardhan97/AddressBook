@@ -11,34 +11,65 @@ namespace AddressBook
     {
         static void Main(string[] args)
         {
-            int exit = 0;
-            do
+            AddressBook records = new AddressBook();
+            string ab;
+        Again:
+            while (true)
             {
-                Console.WriteLine("----------- \n Address Book \n ----------- \n");
-                Contact contact = new Contact();
-                Console.WriteLine("Choose an option \n 1.Add Contact \n 2.Edit Contact \n 3.Delete Contact \n 4. Display \n");
-                int number = Convert.ToInt32(Console.ReadLine());
-                switch (number)
+                Console.WriteLine("\n\nWelcome to Address Book System");
+                Console.WriteLine("1. Add a new Record");
+                Console.WriteLine("2. Update a Record");
+                Console.WriteLine("3. Delete a Record");
+                Console.WriteLine("4.Exit");
+                Console.WriteLine("\nEnter your choice : ");
+
+                int choice = Convert.ToInt32(Console.ReadLine());
+                switch (choice)
                 {
                     case 1:
-                        contact.AddContact();
+                        string n;
+                        Console.WriteLine("\nEnter name of address book which you want to create : ");
+                        n = Console.ReadLine();
+                        records.CreateAddressBook(n);
+                        records.AddRecords(n); 
+                        records.DisplayDictionary(); 
                         break;
                     case 2:
-                        contact.Edit();
+                        records.DiplayListOfAddressBook();
+                        if (records.temp == 1)
+                        {
+                            Console.WriteLine("\nPlease Add Address Book First by entering choice 1");
+                            goto Again;
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nSelect any one address book from above list : ");
+                            ab = Console.ReadLine();
+                            records.UpdateRecords(ab);
+                            records.DisplayDictionary();
+                        }
                         break;
                     case 3:
-                        contact.Delete();
+                        records.DiplayListOfAddressBook();
+                        if (records.temp == 1)
+                        {
+                            Console.WriteLine("\nPlease Add Address Book First by entering choice 1");
+                            goto Again;
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nSelect any one address book from above list : ");
+                            ab = Console.ReadLine();                 
+                            records.DeleteRecord(ab);
+                            records.DisplayDictionary();
+                        }
                         break;
                     case 4:
-                        contact.Display();
-                        break;
-                    default:
-                        Console.WriteLine("Invalid Choice");
+                        System.Environment.Exit(0);
                         break;
                 }
-                Console.Write("\nDo you want to continue? \n Press 1 to Continue \n Press 2 to Exit \n");
-                exit = Convert.ToInt32(Console.ReadLine());
-            } while (exit != 2);
+                Console.ReadLine();
+            }
         }
     }
 }
