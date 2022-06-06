@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,8 +33,8 @@ namespace AddressBook
                         Console.WriteLine("\nEnter name of address book which you want to create : ");
                         n = Console.ReadLine();
                         records.CreateAddressBook(n);
-                        records.AddRecords(n); 
-                        records.DisplayDictionary(); 
+                        records.AddRecords(n);
+                        records.DisplayDictionary();
                         break;
                     case 2:
                         records.DiplayListOfAddressBook();
@@ -59,7 +61,7 @@ namespace AddressBook
                         else
                         {
                             Console.WriteLine("\nSelect any one address book from above list : ");
-                            ab = Console.ReadLine();                 
+                            ab = Console.ReadLine();
                             records.DeleteRecord(ab);
                             records.DisplayDictionary();
                         }
@@ -68,7 +70,7 @@ namespace AddressBook
                         System.Environment.Exit(0);
                         break;
                 }
-                Console.ReadLine();
+                goto Again;
             }
         }
     }

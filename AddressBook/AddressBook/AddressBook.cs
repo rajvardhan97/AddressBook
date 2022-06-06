@@ -17,15 +17,21 @@ namespace AddressBook
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
     }
-    internal class AddressBook
+    public class AddressBook
     {
 
-        List<string> addressBookName = new List<string>(); 
+        List<string> addressBookName = new List<string>();
         Dictionary<string, List<Details>> dict = new Dictionary<string, List<Details>>();
         public void CreateAddressBook(string n)
         {
             addressBookName.Add(n);
-                if (dict.ContainsKey(n))
+            if (dict.Count == 0) 
+            {
+                dict.Add(n, new List<Details>());
+            }
+            else
+            {
+                if (dict.ContainsKey(n)) 
                 {
                     Console.WriteLine("This AddressBook is present");
                 }
@@ -33,6 +39,7 @@ namespace AddressBook
                 {
                     dict.Add(n, new List<Details>());
                 }
+            }
         }
         public int temp = 0;
         public void DiplayListOfAddressBook()
@@ -76,7 +83,7 @@ namespace AddressBook
         public void AddRecords(string name)
         {
             Details input = new Details();
-            
+
             Console.WriteLine("\nEnter your First Name : ");
             input.FirstName = Console.ReadLine();
             Console.WriteLine("Enter your Last Name : ");
@@ -95,11 +102,36 @@ namespace AddressBook
             input.Email = Console.ReadLine();
             foreach (var content in dict.Keys)
             {
-                    dict[name].Add(input); 
-                    Console.WriteLine("\nRecord Added successfully in Address Book");
+                if (content == name)
+                {
+                    if (dict[content].Count == 0)
+                    {
+                        dict[name].Add(input);
+                        Console.WriteLine("\nRecord Added successfully in Address Book");
+                    }
+                    else
+                    {
+                        foreach (var value in dict[content].ToList())
+                        {
+                            if (value != input)
+                            {
+                                dict[name].Add(input);
+                                Console.WriteLine("\nRecord Added successfully in Address Book");
+                            }
+                            else
+                            {
+                                Console.WriteLine("\nThis Record is already present in Address Book");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Address Book Not Found");
+                }
             }
-
         }
+
         string fn, ln;
         public void UpdateRecords(string ab)
         {
