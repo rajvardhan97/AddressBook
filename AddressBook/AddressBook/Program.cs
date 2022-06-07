@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -121,8 +119,7 @@ namespace AddressBook
                     {
                         Console.WriteLine("Found person \"{0} {1}\" , residing in City {2}", j.firstName, j.lastName, j.city);
                     }
-
-
+                    Console.WriteLine("Count of people in City is" + i.Value.Count);
                 }
             }
             else
@@ -134,7 +131,7 @@ namespace AddressBook
                     {
                         Console.WriteLine("Found person \"{0} {1}\" , residing in State {2}", j.firstName, j.lastName, j.state);
                     }
-
+                    Console.WriteLine("Count of people in State is" + i.Value.Count);
                 }
             }
 
@@ -182,5 +179,4 @@ namespace AddressBook
             }
         }
     }
-
 }
