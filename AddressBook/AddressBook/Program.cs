@@ -9,81 +9,67 @@ using System.Collections;
 
 namespace AddressBook
 {
-    public class Program
+    class Program
     {
+
+        public static IDictionary<string, List<AddressBook>> numberNames = new Dictionary<string, List<AddressBook>>();
+        public static Dictionary<string, List<AddressBook>> City = new Dictionary<string, List<AddressBook>>();
+        public static Dictionary<string, List<AddressBook>> State = new Dictionary<string, List<AddressBook>>();
+
         static void Main(string[] args)
         {
-            AddressBook records = new AddressBook();
-            string ab;
-        Again:
-            while (true)
-            {
-                Console.WriteLine("\n\nWelcome to Address Book System");
-                Console.WriteLine("1. Add a new Record");
-                Console.WriteLine("2. Update a Record");
-                Console.WriteLine("3. Delete a Record");
-                Console.WriteLine("4. Display all persons by City name");
-                Console.WriteLine("5. Display all persons by State name");
-                Console.WriteLine("6. Exit");
-                Console.WriteLine("\nEnter your choice : ");
+            Console.WriteLine("Enter number of AddressBook to create");
+            int num = Convert.ToInt32(Console.ReadLine());
 
-                int choice = Convert.ToInt32(Console.ReadLine());
-                switch (choice)
+            while (0 < num)
+            {
+                Console.WriteLine("Enter name of addressBook");
+                string addrBookName = Console.ReadLine();
+
+                AddressBook addressBookSystem = new AddressBook();
+                Console.WriteLine("Enter number of Contacts to Add");
+                int contacts = Convert.ToInt32(Console.ReadLine());
+
+                while (contacts > 0)
                 {
-                    case 1:
-                        string n;
-                        Console.WriteLine("\nEnter name of address book which you want to create : ");
-                        n = Console.ReadLine();
-                        records.CreateAddressBook(n);
-                        records.AddRecords(n);
-                        records.DisplayDictionary();
-                        break;
-                    case 2:
-                        records.DiplayListOfAddressBook();
-                        if (records.temp == 1)
-                        {
-                            Console.WriteLine("\nPlease Add Address Book First by entering choice 1");
-                            goto Again;
-                        }
-                        else
-                        {
-                            Console.WriteLine("\nSelect any one address book from above list : ");
-                            ab = Console.ReadLine();
-                            records.UpdateRecords(ab);
-                            records.DisplayDictionary();
-                        }
-                        break;
-                    case 3:
-                        records.DiplayListOfAddressBook();
-                        if (records.temp == 1)
-                        {
-                            Console.WriteLine("\nPlease Add Address Book First by entering choice 1");
-                            goto Again;
-                        }
-                        else
-                        {
-                            Console.WriteLine("\nSelect any one address book from above list : ");
-                            ab = Console.ReadLine();
-                            records.DeleteRecord(ab);
-                            records.DisplayDictionary();
-                        }
-                        break;
-                    case 4:
-                        Console.WriteLine("Enter any city name : ");
-                        string city = Console.ReadLine();
-                        records.DisplayPersonsByCityName(city);
-                        break;
-                    case 5:
-                        Console.WriteLine("Enter any state name : ");
-                        string state = Console.ReadLine();
-                        records.DisplayPersonsByCityName(state);
-                        break;
-                    case 6:
-                        System.Environment.Exit(0);
-                        break;
+                    Console.WriteLine("\nEnter Firstname ");
+                    string firstname = Console.ReadLine();
+                    Console.WriteLine("Enter Lastname ");
+                    string lastname = Console.ReadLine();
+
+                    Console.WriteLine("Enter Address");
+                    string address = Console.ReadLine();
+
+                    Console.WriteLine("Enter City");
+                    string city = Console.ReadLine();
+
+                    Console.WriteLine("Enter State");
+                    string state = Console.ReadLine();
+
+                    Console.WriteLine("Enter pincode");
+                    int pincode = Convert.ToInt32(Console.ReadLine());
+
+                    Console.WriteLine("Enter PhoneNumber ");
+                    long phone = Convert.ToInt64(Console.ReadLine());
+
+                    Console.WriteLine("Enter Email");
+                    string email = Console.ReadLine();
+
+                    addressBookSystem.CreateContact(firstname, lastname, address, city, state, pincode, phone, email);
+                    contacts--;
                 }
-                goto Again;
+                Console.WriteLine("Do you want to Modify?(Y/N)");
+                char ch = Convert.ToChar(Console.ReadLine());
+                if (ch == 'Y')
+                {
+
+                    addressBookSystem.Modify();
+                }
+
+                numberNames.Add(addrBookName, addressBookSystem.ContactArray);
+                num--; ;
             }
+            AddressBook.Search();
         }
     }
 }
