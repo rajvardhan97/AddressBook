@@ -22,6 +22,8 @@ namespace AddressBook
 
         List<string> addressBookName = new List<string>();
         Dictionary<string, List<Details>> dict = new Dictionary<string, List<Details>>();
+        List<string> cityName = new List<string>();
+        List<string> stateName = new List<string>();
         public void CreateAddressBook(string n)
         {
             addressBookName.Add(n);
@@ -38,6 +40,76 @@ namespace AddressBook
                 else
                 {
                     dict.Add(n, new List<Details>());
+                }
+            }
+        }
+        public void DisplayPersonsByCityName(string cName)
+        {
+            foreach (var city in cityName)
+            {
+                if (cName.Equals(city))
+                {
+                    Console.WriteLine("\nAll records present in multiple address books where city name" + city + "are : ");
+                    foreach (var content in dict.Keys) 
+                    {
+                        Console.WriteLine("\n\nAddress Book : " + content);
+                        int i = 1;
+                        foreach (var value in dict[content].ToList()) 
+                        {
+                            if (value.City == city)
+                            {
+                                Console.WriteLine("\nRecord : " + i);
+                                Console.WriteLine("First Name : " + value.FirstName);
+                                Console.WriteLine("Last Name : " + value.LastName);
+                                Console.WriteLine("Address : " + value.Address);
+                                Console.WriteLine("City : " + value.City);
+                                Console.WriteLine("State : " + value.State);
+                                Console.WriteLine("Email : " + value.Email);
+                                Console.WriteLine("ZipCode code : " + value.ZipCode);
+                                Console.WriteLine("Phone Number : " + value.PhoneNumber);
+                                i++;
+                            }
+                        }
+                    }
+                }
+                 else
+                {
+                    Console.WriteLine("Record does not exist");
+                }
+            }
+        }
+        public void DisplayPersonsByStateName(string sName) 
+        {
+            foreach (var state in stateName)
+            {
+                if (sName.Equals(state))
+                {
+                    Console.WriteLine("\nAll records present in multiple address books where state name " +state + " are : ");
+                    foreach (var content in dict.Keys)
+                    {
+                        Console.WriteLine("\n\nAddress Book : " + content);
+                        int i = 1;
+                        foreach (var value in dict[content].ToList())
+                        {
+                            if (value.State == state)
+                            {
+                                Console.WriteLine("\nRecord : " + i);
+                                Console.WriteLine("First Name : " + value.FirstName);
+                                Console.WriteLine("Last Name : " + value.LastName);
+                                Console.WriteLine("Address : " + value.Address);
+                                Console.WriteLine("City : " + value.City);
+                                Console.WriteLine("State : " + value.State);
+                                Console.WriteLine("Email : " + value.Email);
+                                Console.WriteLine("ZipCode code : " + value.ZipCode);
+                                Console.WriteLine("Phone Number : " + value.PhoneNumber);
+                                i++;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Record does not exist");
                 }
             }
         }
@@ -63,7 +135,7 @@ namespace AddressBook
         {
             foreach (var content in dict.Keys)
             {
-                Console.WriteLine("\n\nAddress Book : " + content);
+                Console.WriteLine("\nAddress Book : " + content);
                 int i = 1;
                 foreach (var value in dict[content].ToList())
                 {
@@ -247,5 +319,6 @@ namespace AddressBook
                 }
             }
         }
+
     }
 }
