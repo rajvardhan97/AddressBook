@@ -80,14 +80,39 @@ namespace AddressBook
             }
         }
         public static void SortContactPerson()
-        {   
+        {
+
+            Console.WriteLine("Enter 1-to Sort contact based on First Name");
+            Console.WriteLine("Enter 1-to Sort contact based on First Name");
+            Console.WriteLine("Enter 2-to Sort Contact Based on State");
+            Console.WriteLine("Enter 3-to Sort Contact based on City");
+            Console.WriteLine("Enter 4-to Sort Contact based on zip");
+            int option = Convert.ToInt32(Console.ReadLine());
             foreach (KeyValuePair<string, List<AddressBook>> kvp in numberNames)
             {
                 Console.WriteLine("Displaying sorted Contact Person Details in address book: {0}", kvp.Key);
                 List<AddressBook> listAddressBook = kvp.Value;
                 ContactSort Compare = new ContactSort();
-                Compare.compareByFields = ContactSort.sortBy.firstName;
-                listAddressBook.Sort(Compare);
+                switch (option)
+                {
+                    case 1:
+                        Compare.compareByFields = ContactSort.sortBy.firstName;
+                        listAddressBook.Sort(Compare);
+                        break;
+                    case 2:
+                        Compare.compareByFields = ContactSort.sortBy.state;
+                        listAddressBook.Sort(Compare);
+                        break;
+                    case 3:
+                        Compare.compareByFields = ContactSort.sortBy.city;
+                        listAddressBook.Sort(Compare);
+                        break;
+                    case 4:
+                        Compare.compareByFields = ContactSort.sortBy.zip;
+                        listAddressBook.Sort(Compare);
+                        break;
+
+                }
                 foreach (var emp in listAddressBook)
                 {
                     Console.WriteLine(emp.ToString());

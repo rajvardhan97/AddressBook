@@ -10,7 +10,7 @@ namespace AddressBook
     { 
         public enum sortBy
         {
-            firstName
+            firstName, city, state, zip
         }
         public sortBy compareByFields;
         public int Compare(AddressBook address, AddressBook book)
@@ -19,6 +19,12 @@ namespace AddressBook
             {
                 case sortBy.firstName:
                     return address.firstName.CompareTo(book.firstName);
+                case sortBy.city:
+                    return address.city.CompareTo(book.city);
+                case sortBy.state:
+                    return address.state.CompareTo(book.state);
+                case sortBy.zip:
+                    return address.zip.CompareTo(book.zip);
                 default: 
                     break;
             }
