@@ -24,7 +24,7 @@ namespace AddressBook
                 Console.WriteLine("Enter name of addressBook");
                 string addrBookName = Console.ReadLine();
 
-                AddressBook addressBookSystem = new AddressBook();
+                AddressBook addressBook = new AddressBook();
                 Console.WriteLine("Enter number of Contacts to Add");
                 int contacts = Convert.ToInt32(Console.ReadLine());
 
@@ -45,15 +45,15 @@ namespace AddressBook
                     string state = Console.ReadLine();
 
                     Console.WriteLine("Enter pincode");
-                    int pincode = Convert.ToInt32(Console.ReadLine());
+                    string pincode = Console.ReadLine();
 
                     Console.WriteLine("Enter PhoneNumber ");
-                    long phone = Convert.ToInt64(Console.ReadLine());
+                    string phone = Console.ReadLine();
 
                     Console.WriteLine("Enter Email");
                     string email = Console.ReadLine();
 
-                    addressBookSystem.CreateContact(firstname, lastname, address, city, state, pincode, phone, email);
+                    addressBook.CreateContact(firstname, lastname, address, city, state, pincode, phone, email);
                     contacts--;
                 }
                 Console.WriteLine("Do you want to Modify?(Y/N)");
@@ -61,19 +61,24 @@ namespace AddressBook
                 if (ch == 'Y')
                 {
 
-                    addressBookSystem.Modify();
+                    addressBook.Modify();
                 }
 
-                numberNames.Add(addrBookName, addressBookSystem.ContactArray);
+                numberNames.Add(addrBookName, addressBook.ContactArray);
+                foreach (KeyValuePair<string, List<AddressBook>> kvp in numberNames)
+                {             
+                    Console.WriteLine("Key: {0}, Value: {1}", kvp.Key, kvp.Value + "\n");
+                }
                 num--;
+
             }
+
             Search();
         }
         public void Display(List<AddressBook> ContactArray, int N)
         {
-            Console.WriteLine("---------Address Book Contains---------");
-            int i;
-            for (i = 0; i < N; i++)
+            Console.WriteLine("Address Book:");
+            for (int i = 0; i < N; i++)
             {
                 Console.WriteLine("First name: {0}\n Last name: {1}\n Address: {2}\n City: {3}\n Zip: {4}\n State: {5}\n Phone Number: {6}\n Email: {7} \n", ContactArray[i].firstName, ContactArray[i].lastName, ContactArray[i].Address, ContactArray[i].city, ContactArray[i].zip, ContactArray[i].state, ContactArray[i].phoneNumber, ContactArray[i].email);
 
@@ -83,36 +88,36 @@ namespace AddressBook
         {
 
             Console.WriteLine("Enter 1-to Sort contact based on First Name");
-            Console.WriteLine("Enter 1-to Sort contact based on First Name");
             Console.WriteLine("Enter 2-to Sort Contact Based on State");
             Console.WriteLine("Enter 3-to Sort Contact based on City");
             Console.WriteLine("Enter 4-to Sort Contact based on zip");
             int option = Convert.ToInt32(Console.ReadLine());
             foreach (KeyValuePair<string, List<AddressBook>> kvp in numberNames)
             {
-                Console.WriteLine("Displaying sorted Contact Person Details in address book: {0}", kvp.Key);
+                Console.WriteLine("Displaying sorted Contact Person Details in address book: " + kvp.Key);
+                
                 List<AddressBook> listAddressBook = kvp.Value;
-                ContactSort Compare = new ContactSort();
+                ContactSort sort = new ContactSort();
                 switch (option)
                 {
                     case 1:
-                        Compare.compareByFields = ContactSort.sortBy.firstName;
-                        listAddressBook.Sort(Compare);
+                        sort.compareByFields = ContactSort.sortBy.firstName;
+                        listAddressBook.Sort(sort);
                         break;
                     case 2:
-                        Compare.compareByFields = ContactSort.sortBy.state;
-                        listAddressBook.Sort(Compare);
+                        sort.compareByFields = ContactSort.sortBy.state;
+                        listAddressBook.Sort(sort);
                         break;
                     case 3:
-                        Compare.compareByFields = ContactSort.sortBy.city;
-                        listAddressBook.Sort(Compare);
+                        sort.compareByFields = ContactSort.sortBy.city;
+                        listAddressBook.Sort(sort);
                         break;
                     case 4:
-                        Compare.compareByFields = ContactSort.sortBy.zip;
-                        listAddressBook.Sort(Compare);
+                        sort.compareByFields = ContactSort.sortBy.zip;
+                        listAddressBook.Sort(sort);
                         break;
-
                 }
+
                 foreach (var emp in listAddressBook)
                 {
                     Console.WriteLine(emp.ToString());
@@ -125,6 +130,8 @@ namespace AddressBook
             Console.WriteLine("Enter 2-to Seach a person through a State");
             Console.WriteLine("Enter 3-to view people  in City list or State list");
             Console.WriteLine("Enter 4-to Sort Contact people in Address Book");
+            Console.WriteLine("Enter 5-To Write AddressBook in File");
+            Console.WriteLine("Enter 6-To Read a File");
 
             int option = Convert.ToInt32(Console.ReadLine());
             switch (option)
@@ -140,6 +147,12 @@ namespace AddressBook
                     break;
                 case 4:
                     SortContactPerson();
+                    break;
+                case 5:
+                    FileOperations.GetDictionary(numberNames);
+                    break;
+                case 6:
+                    FileOperations.ReadAddressBook();
                     break;
 
                 default:
@@ -158,7 +171,7 @@ namespace AddressBook
                     Console.WriteLine("Display List for City: {0}\n", i.Key);
                     foreach (var j in i.Value)
                     {
-                        Console.WriteLine("Found person \"{0} {1}\" , residing in City {2}", j.firstName, j.lastName, j.city);
+                        Console.WriteLine("Found person {0} {1} , residing in City {2}", j.firstName, j.lastName, j.city);
                     }
                     Console.WriteLine("Count of people in City is: {0}", i.Value.Count);
                 }
@@ -170,7 +183,7 @@ namespace AddressBook
                     Console.WriteLine("Display List for State: {0}\n", i.Key);
                     foreach (var j in i.Value)
                     {
-                        Console.WriteLine("Found person \"{0} {1}\" , residing in State {2}", j.firstName, j.lastName, j.state);
+                        Console.WriteLine("Found person {0} {1}, residing in State {2}", j.firstName, j.lastName, j.state);
                     }
                     Console.WriteLine("Count of people in State is: {0}", i.Value.Count);
                 }
@@ -190,7 +203,6 @@ namespace AddressBook
                 Console.WriteLine("Enter the City Name");
                 state = Console.ReadLine();
             }
-
             foreach (KeyValuePair<string, List<AddressBook>> kvp in numberNames)
             {
                 if (option == 1)
@@ -201,7 +213,6 @@ namespace AddressBook
                 {
                     StoreState(kvp.Key, kvp.Value, state);
                 }
-
             }
         }
         public static void StoreCity(string key, List<AddressBook> ContactArray, string city)
@@ -209,7 +220,7 @@ namespace AddressBook
             List<AddressBook> CityList = ContactArray.FindAll(x => x.city.Equals(city)).ToList();
             foreach (var i in CityList)
             {
-                Console.WriteLine("Found person \"{0}\" in Address Book \"{1}\" , residing in City {2}", i.firstName, key, i.city);
+                Console.WriteLine("Found person {0} in Address Book {1}, residing in City {2}", i.firstName, key, i.city);
             }
         }
         public static void StoreState(string key, List<AddressBook> ContactArray, string state)
@@ -217,8 +228,9 @@ namespace AddressBook
             List<AddressBook> StateList = ContactArray.FindAll(x => x.state.Equals(state)).ToList();
             foreach (var i in StateList)
             {
-                Console.WriteLine("Found person \"{0}\" in Address Book \"{1}\" , residing in State {2}", i.firstName, key, i.state);
+                Console.WriteLine("Found person {0} in Address Book {1}, residing in State {2}", i.firstName, key, i.state);
             }
         }
+
     }
 }

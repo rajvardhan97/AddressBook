@@ -1,34 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AddressBook
 {
     class ContactSort : IComparer<AddressBook>
-    { 
+    {
         public enum sortBy
         {
-            firstName, city, state, zip
+            firstName,
+            city,
+            state,
+            zip
         }
         public sortBy compareByFields;
-        public int Compare(AddressBook address, AddressBook book)
+
+        public int Compare(AddressBook x, AddressBook y)
         {
             switch (compareByFields)
             {
                 case sortBy.firstName:
-                    return address.firstName.CompareTo(book.firstName);
+                    return x.firstName.CompareTo(y.firstName);
                 case sortBy.city:
-                    return address.city.CompareTo(book.city);
+                    return x.city.CompareTo(y.city);
                 case sortBy.state:
-                    return address.state.CompareTo(book.state);
+                    return x.state.CompareTo(y.state);
                 case sortBy.zip:
-                    return address.zip.CompareTo(book.zip);
-                default: 
-                    break;
+                    return x.zip.CompareTo(y.zip);
+                default: break;
+
             }
-            return address.firstName.CompareTo(book.firstName);
+            return x.firstName.CompareTo(y.firstName);
         }
     }
 }

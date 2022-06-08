@@ -17,13 +17,13 @@ namespace AddressBook
         public string Address;
         public string city;
         public string state;
-        public int zip;
-        public long phoneNumber;
+        public string zip;
+        public string phoneNumber;
         public string email;
         public List<AddressBook> ContactArray;
-        int contact = 0;
+        public int contact = 0;
 
-        public AddressBook(string firstName, string lastName, string Address, string city, string state, int zip, long phoneNumber, string email)
+        public AddressBook(string firstName, string lastName, string Address, string city, string state, string zip, string phoneNumber, string email)
         {
             this.firstName = firstName;
             this.lastName = lastName;
@@ -35,13 +35,16 @@ namespace AddressBook
             this.email = email;
 
         }
-
         public AddressBook()
         {
             this.ContactArray = new List<AddressBook>();
         }
+        public override string ToString()
+        {
+            return ("Name: " + this.firstName + " " + this.lastName + "\tAddress: " + this.Address + "\tCity: " + this.city + " \t State: " + this.state + "\tPincode: " + this.zip + " \t Phone Number: " + this.phoneNumber + "\tEmail Id: " + this.email);
+        }
 
-        public void CreateContact(string firstName, string lastName, string Address, string city, string state, int zip, long phoneNumber, string email)
+        public void CreateContact(string firstName, string lastName, string Address, string city, string state, string zip, string phoneNumber, string email)
         {
             AddressBook bookSystem;
 
@@ -82,7 +85,6 @@ namespace AddressBook
             }
             else if (contact != 0)
             {
-
                 AddressBook addressBookSystems = ContactArray.Find(x => x.firstName.Equals(firstName));
                 if (addressBookSystems == null)
                 {
@@ -120,7 +122,7 @@ namespace AddressBook
                 }
                 else
                 {
-                    Console.WriteLine("This person already exists in your AddressBook!");
+                    Console.WriteLine("This person already exists in your AddressBook");
                 }
 
             }
@@ -167,12 +169,12 @@ namespace AddressBook
                     break;
                 case 6:
                     Console.WriteLine("Enter the modified value");
-                    int temp = Convert.ToInt32(Console.ReadLine());
+                    string temp = (Console.ReadLine());
                     ContactArray[i].zip = temp;
                     break;
                 case 7:
                     Console.WriteLine("Ente the modified value");
-                    int phn = Convert.ToInt32(Console.ReadLine());
+                    string phn = Console.ReadLine();
                     ContactArray[i].phoneNumber = phn;
                     break;
                 case 8:
@@ -180,6 +182,7 @@ namespace AddressBook
                     string emails = Console.ReadLine();
                     ContactArray[i].email = emails;
                     break;
+                //Delete a user
                 case 9:
                     ContactArray = ContactArray.Take(i).Concat(ContactArray.Skip(i + 1)).ToList();
                     contact--;
