@@ -9,32 +9,23 @@ namespace AddressBook
     public class AddressBook
     {
 
-        public List<AddressBook> stateList;
-        public List<AddressBook> cityList;
+        public List<AddressBook> stateList { get; set; }
+        public List<AddressBook> cityList { get; set; }
 
-        public string firstName;
-        public string lastName;
-        public string Address;
-        public string city;
-        public string state;
-        public string zip;
-        public string phoneNumber;
-        public string email;
-        public List<AddressBook> ContactArray;
+
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public string Address { get; set; }
+        public string city { get; set; }
+        public string state { get; set; }
+        public string zip { get; set; }
+        public string phoneNumber { get; set; }
+        public string email { get; set; }
+        public string key { get; set; }
+        public List<AddressBook> ContactArray { get; set; }
+
         public int contact = 0;
 
-        public AddressBook(string firstName, string lastName, string Address, string city, string state, string zip, string phoneNumber, string email)
-        {
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.Address = Address;
-            this.city = city;
-            this.state = state;
-            this.zip = zip;
-            this.phoneNumber = phoneNumber;
-            this.email = email;
-
-        }
         public AddressBook()
         {
             this.ContactArray = new List<AddressBook>();
@@ -44,13 +35,24 @@ namespace AddressBook
             return ("Name: " + this.firstName + " " + this.lastName + "\tAddress: " + this.Address + "\tCity: " + this.city + " \t State: " + this.state + "\tPincode: " + this.zip + " \t Phone Number: " + this.phoneNumber + "\tEmail Id: " + this.email);
         }
 
-        public void CreateContact(string firstName, string lastName, string Address, string city, string state, string zip, string phoneNumber, string email)
+        public void CreateContact(string addrBookName, string firstName, string lastName, string Address, string city, string state, string zip, string phoneNumber, string email)
         {
-            AddressBook bookSystem;
+            AddressBook bookSystem = new AddressBook();
+            bookSystem.firstName = firstName;
+            bookSystem.lastName = lastName;
+            bookSystem.Address = Address;
+            bookSystem.city = city;
+            bookSystem.state = state;
+            bookSystem.zip = zip;
+            bookSystem.phoneNumber = phoneNumber;
+            bookSystem.email = email;
+            bookSystem.key = addrBookName;
 
-            if (contact == 0)
+
+            //Newly add element to List
+            if (ContactArray.Count == 0)
             {
-                bookSystem = new AddressBook(firstName, lastName, Address, city, state, zip, phoneNumber, email);
+
                 ContactArray.Add(bookSystem);
                 if (Program.State.ContainsKey(state))
                 {
@@ -78,17 +80,18 @@ namespace AddressBook
                     Program.City.Add(city, cityList);
 
                 }
-                contact++;
+
                 Program obj = new Program();
-                obj.Display(ContactArray, contact);
+                obj.Display(ContactArray, ContactArray.Count);
 
             }
-            else if (contact != 0)
+            else if (ContactArray.Count != 0)
             {
+                //Check if element already present in List
                 AddressBook addressBookSystems = ContactArray.Find(x => x.firstName.Equals(firstName));
                 if (addressBookSystems == null)
                 {
-                    bookSystem = new AddressBook(firstName, lastName, Address, city, state, zip, phoneNumber, email);
+
                     ContactArray.Add(bookSystem);
                     if (Program.State.ContainsKey(state))
                     {
@@ -116,13 +119,13 @@ namespace AddressBook
                         Program.City.Add(city, cityList);
 
                     }
-                    contact++;
+
                     Program obj = new Program();
-                    obj.Display(ContactArray, contact);
+                    obj.Display(ContactArray, ContactArray.Count);
                 }
                 else
                 {
-                    Console.WriteLine("This person already exists in your AddressBook");
+                    Console.WriteLine("This person already exists in your AddressBook!");
                 }
 
             }
@@ -182,7 +185,6 @@ namespace AddressBook
                     string emails = Console.ReadLine();
                     ContactArray[i].email = emails;
                     break;
-                //Delete a user
                 case 9:
                     ContactArray = ContactArray.Take(i).Concat(ContactArray.Skip(i + 1)).ToList();
                     contact--;

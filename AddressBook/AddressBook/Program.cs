@@ -53,7 +53,7 @@ namespace AddressBook
                     Console.WriteLine("Enter Email");
                     string email = Console.ReadLine();
 
-                    addressBook.CreateContact(firstname, lastname, address, city, state, pincode, phone, email);
+                    addressBook.CreateContact(addrBookName, firstname, lastname, address, city, state, pincode, phone, email);
                     contacts--;
                 }
                 Console.WriteLine("Do you want to Modify?(Y/N)");
@@ -132,6 +132,7 @@ namespace AddressBook
             Console.WriteLine("Enter 4-to Sort Contact people in Address Book");
             Console.WriteLine("Enter 5-To Write AddressBook in File");
             Console.WriteLine("Enter 6-To Read a File");
+            Console.WriteLine("Enter 7-Perform Csv Operations");
 
             int option = Convert.ToInt32(Console.ReadLine());
             switch (option)
@@ -154,7 +155,9 @@ namespace AddressBook
                 case 6:
                     FileOperations.ReadAddressBook();
                     break;
-
+                case 7:
+                    CSVOperations.CSVOperation(numberNames);
+                    break;
                 default:
                     Console.WriteLine("Invalid Option!");
                     break;
